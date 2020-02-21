@@ -1,0 +1,48 @@
+.column {
+  float: left;
+  width: 25%;
+  text-align: center;
+}
+
+
+/* Clear floats after the columns */
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.second_row {
+  padding-top: 30px;
+}
+
+@media screen and (max-width: 1600px) {
+  .column {
+      width: 50%;
+      text-align: initial;
+      padding-bottom: 20px;
+  }
+  body {
+      justify-content: center;
+      text-align: left;
+  }
+  .second_row {
+    padding-top: 0px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .column {
+      width: 100%;
+      text-align: initial;
+      padding-bottom: 20px;
+  }
+  body {
+      justify-content: center;
+      text-align: left;
+  }
+  .second_row {
+    padding-top: 0px;
+  }
+}
