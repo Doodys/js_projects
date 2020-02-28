@@ -431,3 +431,58 @@ var mitosis = function(p) {
 }
 
 let myp5_7 = new p5(mitosis, "c7");
+
+var lorenzAttractor = function(p) {
+    const MAX_LEN = 1200;
+    let offset = 0;
+
+    var x = 0.01;
+    var y = 0;
+    var z = 0;
+
+    var a = 10;
+    var b = 28;
+    var c = 8.0/3.0;
+
+    var points = [];
+
+    p.setup = function() {
+      p.createCanvas(400, 400, p.WEBGL);
+      p.colorMode(p.HSB, 100);
+    }
+
+    p.draw = function() {
+      p.background(0);
+      p.rotateY(p.frameCount * 0.01);
+      var dt = 0.01;
+      var dx = (a * (y - x)) * dt;
+      var dy = (x * (b - z) - y) * dt;
+      var dz = (x * y - c * z) * dt;
+      x = x + dx;
+      y = y + dy;
+      z = z + dz;
+
+      var vect = p.createVector(x, y, z);
+      points.push(vect);
+
+      if (points.length > MAX_LEN) {
+        points.splice(0, 1);
+        ++offset;
+      }
+
+      p.translate(p.width/2 - 200, p.height/2 - 200);
+      p.strokeWeight(3);
+      p.scale(2.8);
+      p.noFill();
+      p.beginShape()
+      for(i = 0; i < points.length; i++)
+      {   
+        let next = points[i];
+        p.stroke(((i + offset) * 0.1) % 100, 100, 100 - (points.length - i) * (100 / MAX_LEN));
+        p.vertex(points[i].x, points[i].y, points[i].z);
+      }   
+      p.endShape()
+    }
+}
+
+let myp5_8 = new p5(lorenzAttractor, "c8");
